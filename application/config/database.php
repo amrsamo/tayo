@@ -63,7 +63,7 @@ else
 	//Production
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
-	$db['default']['password'] = 'localhost';
+	$db['default']['password'] = ".?R](%B=<NE,6'g";
 	$db['default']['database'] = 'tayo';
 }
 

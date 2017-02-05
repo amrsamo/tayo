@@ -61,10 +61,10 @@ if($HTTP_HOST == 'localhost')
 else
 {
 	//Production
-	$db['default']['hostname'] = '';
-	$db['default']['username'] = '';
-	$db['default']['password'] = '';
-	$db['default']['database'] = '';
+	$db['default']['hostname'] = 'localhost';
+	$db['default']['username'] = 'root';
+	$db['default']['password'] = 'localhost';
+	$db['default']['database'] = 'tayo';
 }
 
 $db['default']['dbdriver'] = 'mysqli';

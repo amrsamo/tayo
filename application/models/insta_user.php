@@ -15,9 +15,12 @@ class Insta_User extends Base_Model
 
     public function getUsers($where = null)
     {   
+
+        $hashtags = array('restaurants','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotels','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
         $this->db->distinct();
         $this->db->select('*');
-        $this->db->from('user_test');
+        $this->db->from('user');
+        $this->db->where_in('hashtag',$hashtags);
 
         if($where != NULL) 
                 $this->db->where($where);
@@ -78,10 +81,14 @@ class Insta_User extends Base_Model
 
     public function getHashtags()
     {   
+
+        $hashtags = array('restaurants','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotels','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
+
+
         $this->db->distinct();
         $this->db->select('hashtag');
         $this->db->from('user');
-        $this->db->where('hashtag !=','email');
+        $this->db->where_in('hashtag',$hashtags);
         $query = $this->db->get();
 
         return ($query->result());

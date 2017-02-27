@@ -17,6 +17,7 @@ class Insta_User extends Base_Model
     {   
 
         $hashtags = array('restaurant','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotels','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
+
         $this->db->distinct();
         $this->db->select('*');
         $this->db->from('user');
@@ -24,6 +25,24 @@ class Insta_User extends Base_Model
             $this->db->where($where);
         else
             $this->db->where_in('hashtag',$hashtags);
+
+        
+        $this->db->order_by("id", "desc");
+        $this->db->limit(20);
+        $query = $this->db->get();
+
+        return ($query->result());
+    }
+
+    public function getHomeUsers()
+    {
+
+        $hashtags = array('travel','weddingphotography','makeupartist','makeup','influencer','traveler','travelers','fitness','hotels','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
+
+        $this->db->distinct();
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->where_in('hashtag',$hashtags);
 
         
         $this->db->order_by("id", "desc");

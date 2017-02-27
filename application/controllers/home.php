@@ -30,7 +30,7 @@ class Home extends CI_Controller {
 
 		$this->data['hashtags'] = $this->Insta_User->getHashtags();
 		// $this->data['locations'] = $this->Insta_User->getLocation();
-		$this->data['users'] = $this->Insta_User->getUsers();
+		$this->data['users'] = $this->Insta_User->getHomeUsers();
 
 
 		$max_user = count($this->data['users']) -1;

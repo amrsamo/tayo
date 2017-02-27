@@ -8,7 +8,7 @@ class Insta_User extends Base_Model
     public function __construct() 
     { 	
         parent::__construct(); 
-        $this->table = 'user_test';
+        $this->table = 'user';
     } 
 
 
@@ -16,14 +16,16 @@ class Insta_User extends Base_Model
     public function getUsers($where = null)
     {   
 
-        $hashtags = array('restaurants','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotels','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
+        $hashtags = array('restaurant','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotels','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
         $this->db->distinct();
         $this->db->select('*');
         $this->db->from('user');
-        $this->db->where_in('hashtag',$hashtags);
-
         if($where != NULL) 
-                $this->db->where($where);
+            $this->db->where($where);
+        else
+            $this->db->where_in('hashtag',$hashtags);
+
+        
         $this->db->order_by("id", "desc");
         $this->db->limit(20);
         $query = $this->db->get();
@@ -82,7 +84,7 @@ class Insta_User extends Base_Model
     public function getHashtags()
     {   
 
-        $hashtags = array('restaurants','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotels','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
+        $hashtags = array('restaurant','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotel','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
 
 
         $this->db->distinct();

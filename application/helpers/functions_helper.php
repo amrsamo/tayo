@@ -1,5 +1,52 @@
 <?php 
 	
+
+	function cleanHashtag($x)
+	{	
+
+		$hashtags = array('restaurant','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotel','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
+
+		switch ($x) {
+	    case "weddingphotography":
+	        return "Wedding Photographer";
+	        break;
+	    case "petcare":
+	        return "Pet Care";
+	        break;
+	    case "daycar":
+	        return "Day Care";
+	        break;
+	    case "makeupartist":
+	        return "Makeup Artist";
+	        break;
+	    case "interiordesign":
+	        return "Interior Design";
+	        break;
+	    case "grocery":
+	        return "Interior Designer";
+	        break;
+	    case "eventplanner":
+	        return "Event Planner";
+	        break;
+	    case "weddingplanner":
+	        return "Wedding Planner";
+	        break;
+        case "fashiondesigner":
+	        return "Fashion Designer";
+	        break;
+        case "fashionstylist":
+	        return "Fashion Stylist";
+	        break;
+        case "weddingplanner":
+	        return "Wedding Planner";
+	        break;
+        case "dj":
+	        return "DJ";
+	        break;
+	    default:
+	        return ucfirst($x);
+}
+	}
 	function printme($x)
 	{
 		echo '<pre>'.print_r($x,true).'</pre>';

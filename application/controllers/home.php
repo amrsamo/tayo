@@ -133,7 +133,6 @@ class Home extends CI_Controller {
 	{
 		$category = $this->uri->segment(2);
 
-
 		$conditions = array();
 		$conditions['hashtag'] = $category;
 

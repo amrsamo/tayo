@@ -41,7 +41,7 @@ body{
                         <?php $class = ( (isset($active) && $active == $x->hashtag)? 'active' : '');
                      ?>
                        <a href="<?= base_url(); ?>category/<?= $x->hashtag; ?>" class="list-group-item <?= $class ?>">
-                       <?= $x->hashtag; ?>
+                       <?= cleanHashtag($x->hashtag); ?>
                            
                        </a> 
                     <?php endforeach ?>

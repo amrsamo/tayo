@@ -16,7 +16,7 @@ class Insta_User extends Base_Model
     public function getUsers($where = null)
     {   
 
-        $hashtags = array('restaurant','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotels','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
+        $hashtags = array('restaurant','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','hotels','brands','hairstylist','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','photographer');
 
         $this->db->distinct();
         $this->db->select('*');
@@ -27,10 +27,54 @@ class Insta_User extends Base_Model
             $this->db->where_in('hashtag',$hashtags);
 
         
-        $this->db->order_by("id", "desc");
+        $this->db->order_by("followers", "desc");
         $this->db->limit(20);
         $query = $this->db->get();
 
+        return ($query->result());
+    }
+
+
+    
+
+     public function getHashtagUsers($hashtag)
+    {
+
+        // $hashtags = array('travel','weddingphotography','makeupartist','makeup','hotel','hairstylist','eventplanner','weddingplanner','fashionstylist','photographer','stylist');
+
+        if($hashtag == 'hotel' || $hashtag == 'restaurant' || $hashtag == 'airline' )
+        {
+            $this->db->select('*');
+            $this->db->from('user');
+            $this->db->where('hashtag',$hashtag);
+            $this->db->order_by("id", "desc");
+            $this->db->limit(20);
+            $query = $this->db->get();
+            return ($query->result());
+
+        }
+        // echo 'here';exit();
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->where('hashtag',$hashtag);
+        $this->db->where('(`username` LIKE \'%'.$hashtag.'%\' OR `biography` LIKE \'%'.$hashtag.'%\' OR `fullName` LIKE \'%'.$hashtag.'%\')', NULL, FALSE);
+        // $this->db->where('externalUrl !=', '');
+        // $this->db->where('location !=', '');
+        // $this->db->not_like('email','na_');
+        // $this->db->or_like(array('username' => $hashtag, 'biography' => $hashtag));
+        // $this->db->like('username',$hashtag);
+        // $this->db->like('biography',$hashtag);
+        // $this->db->or_like('biography',$hashtag);
+
+        
+        $this->db->order_by("followers", "desc");
+        $this->db->limit(20);
+
+        
+        $query = $this->db->get();
+
+        // printme($this->db->last_query());
+        // exit();
         return ($query->result());
     }
 
@@ -43,9 +87,11 @@ class Insta_User extends Base_Model
         $this->db->select('*');
         $this->db->from('user');
         $this->db->where_in('hashtag',$hashtags);
+        $this->db->where('externalUrl !=', '');
+        $this->db->or_not_like('email','na_');
 
         
-        $this->db->order_by("id", "desc");
+        $this->db->order_by("followers", "desc");
         $this->db->limit(20);
         $query = $this->db->get();
 
@@ -63,24 +109,31 @@ class Insta_User extends Base_Model
     }
 
 
-    public function getUserByLocationName($search,$max=null)
+    public function getUserByLocationName($search,$category,$max=null)
     {   
 
-        $search = explode(' ', $search);
+        //$search = explode(' ', $search);
 
         // printme($search);
         // exit();
         $this->db->select('*');
-        foreach ($search as $x) {
-            $this->db->or_like('location',$x);
-        }
+        
         $this->db->from('user');
         if($max != NULL) 
                 $this->db->where('id <', $max);
+        if($category != "")
+        {   
+            $this->db->where('hashtag',$category);
+            $this->db->where('(`username` LIKE \'%'.$category.'%\' OR `biography` LIKE \'%'.$category.'%\' OR `fullName` LIKE \'%'.$category.'%\')', NULL, FALSE);
+        }
+        
+        $this->db->like('location',$search);
         $this->db->order_by("id", "desc");
         $this->db->limit(21);
         $query = $this->db->get();
 
+        // printme($this->db->last_query());
+        // exit();
         return ($query->result());
     }
 
@@ -103,8 +156,9 @@ class Insta_User extends Base_Model
     public function getHashtags()
     {   
 
-        $hashtags = array('restaurant','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotel','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
+        // $hashtags = array('restaurant','petcare','daycar','airline','airlines','travel','weddingphotography','makeupartist','makeup','influencer','influencers','traveler','travelers','fitness','hotel','brands','hairstylist','interiordesign','interiordesigner','eventplanner','weddingplanner','fashiondesigner','fashionstylist','barber','grocery','supermarket','photographer','blogger','dj','artist','stylist');
 
+        $hashtags = array('travel','weddingphotography','makeupartist','makeup','hotel','hairstylist','eventplanner','weddingplanner','fashionstylist','photographer','stylist','restaurant','airline');
 
         $this->db->distinct();
         $this->db->select('hashtag');

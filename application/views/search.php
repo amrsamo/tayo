@@ -39,8 +39,8 @@ body{
                     <?php foreach ($hashtags as $x): ?>
                         <?php $class = ( (isset($active) && $active == $x->hashtag)? 'active' : '');
                      ?>
-                       <a href="<?= base_url(); ?>category/<?= $x->hashtag; ?>" class="list-group-item <?= $class ?>">
-                       <?= $x->hashtag; ?>
+                       <a href="<?= $current_url_querystring; ?>&category=<?= $x->hashtag; ?>" class="list-group-item <?= $class ?>">
+                       <?= cleanHashtag($x->hashtag); ?>
                            
                        </a> 
                     <?php endforeach ?>

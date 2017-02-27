@@ -1,6 +1,29 @@
 <?php 
 	
 
+	function current_url_querystring()
+{
+    $CI =& get_instance();
+
+    $url = $CI->config->site_url($CI->uri->uri_string());
+    if (strpos($_SERVER['QUERY_STRING'], 'category') !== false) 
+    {
+    	$q = get_string_between($_SERVER['QUERY_STRING'],'=','&');
+        return $url.'?q='.$q;
+    }
+    return $_SERVER['QUERY_STRING'] ? $url.'?'.$_SERVER['QUERY_STRING'] : $url;
+}
+	
+
+	function get_string_between($string, $start, $end){
+    $string = ' ' . $string;
+    $ini = strpos($string, $start);
+    if ($ini == 0) return '';
+    $ini += strlen($start);
+    $len = strpos($string, $end, $ini) - $ini;
+    return substr($string, $ini, $len);
+}
+
 	function cleanHashtag($x)
 	{	
 

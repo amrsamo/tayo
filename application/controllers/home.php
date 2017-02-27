@@ -33,6 +33,8 @@ class Home extends CI_Controller {
 		$this->data['users'] = $this->Insta_User->getHomeUsers();
 
 
+		// printme($this->data);
+		// exit();
 		$max_user = count($this->data['users']) -1;
 		$max_user_id = $this->data['users'][$max_user]->id;
 		$this->data['max_user_id'] = $max_user_id;
@@ -67,11 +69,24 @@ class Home extends CI_Controller {
 
 
 	public function search()
-	{
+	{	
+
+		$this->data['current_url_querystring'] = current_url_querystring();
+
 		$data = array();
 		$search = $_GET['q'];
 		// $coordiniates = $this->getCoordinates($search);
-		$this->data['users'] = $this->Insta_User->getUserByLocationName($search);
+
+		if(isset($_GET['category']))
+		{
+			$category = $_GET['category'];
+		}
+		else
+		{
+			$category = "";
+		}
+
+		$this->data['users'] = $this->Insta_User->getUserByLocationName($search,$category);
 		$max_user = count($this->data['users']) -1;
 		$max_user_id = $this->data['users'][$max_user]->id;
 
@@ -137,7 +152,7 @@ class Home extends CI_Controller {
 		$conditions['hashtag'] = $category;
 
 		$this->data['hashtags'] = $this->Insta_User->getHashtags();
-		$this->data['users'] = $this->Insta_User->getUsers($conditions,"",10);
+		$this->data['users'] = $this->Insta_User->getHashtagUsers($category);
 		$this->data['users'] = $this->fixUsers($this->data['users']);
 
 		$max_user = count($this->data['users']) -1;
